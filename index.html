@@ -150,7 +150,7 @@
     }
     
     #changeColorButton-custom {
-opacity:0;
+    opacity:0;
     }
 
     #goToTopButton {
@@ -164,7 +164,7 @@ opacity:0;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-margin-left:-70px;
+      margin-left:-70px;
     }
 
     
@@ -184,7 +184,7 @@ margin-left:-70px;
     .banner {
       width: 100%;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.9);
       z-index: 999;
       position: fixed;
       top: 0;
@@ -221,9 +221,31 @@ margin-left:-70px;
       opacity: 0.5;
       pointer-events: none;
     }
+
+.stendardo{
+  position:fixed;
+  z-index:999;
+  background-color: #1A2541;
+  width:3%;
+  height:100vh;
+  top:0;
+
+}
+.stendardo-sinistra{
+left:0;
+}
+.stendardo-destra{
+  right:0;
+}
+
   </style>
 </head>
 <body>
+  
+  <div class="stendardo stendardo-sinistra"></div>
+  <div class="stendardo stendardo-destra"></div>
+  
+  
   <div class="div1">
     <p class="text">Un esercizio <strong>fondamentale</strong> per allenare i muscoli responsabili della mobilità degli occhi è quello dei <strong>puntini</strong>. Per aiutarti ad allenare la velocità di spostamento degli occhi da un punto di fissità all'altro abbiamo creato questo gioco: <strong>Segui i puntini come fossero un testo da sinistra a destra e alla fine di ogni riga ritorna al primo puntino a sinistra.</strong>
       Abituati a un ritmo regolare grazie al metronomo, che puoi impostare alla velocità massima a cui riesci a seguire i puntini che si illuminano. Man mano che ti alleni potrai aumentare il ritmo e il tempo di esecuzione dell'esercizio. <strong>In questo modo migliorerai velocità e resistenza.</strong>
@@ -234,7 +256,8 @@ margin-left:-70px;
 
   <div class="line-bottom"></div>
 
-  <p class="velocity">Scegli la velocità con cui iniziare</p>
+  <p class="velocity">Scegli la velocità con cui iniziare 
+  </p>
 
   <div class="row">
     <div class="ball"></div>
@@ -284,6 +307,15 @@ margin-left:-70px;
     </div>
   </div>
  
+
+
+
+
+
+
+
+
+
   <script>
     const balls = document.querySelectorAll('.ball');
     const slider = document.querySelector('.slider');
@@ -442,7 +474,7 @@ margin-left:-70px;
       countdownElement.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
       countdownElement.style.color = '#FFF';
       countdownElement.style.fontFamily = 'Raleway';
-      countdownElement.style.fontSize = '30px';
+      countdownElement.style.fontSize = '60px';
       countdownElement.style.position = 'fixed';
       countdownElement.style.top = '50%';
       countdownElement.style.left = '50%';
@@ -548,3 +580,4 @@ margin-left:-70px;
   
 </body>
 </html>
+
