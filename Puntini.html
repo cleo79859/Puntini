@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@400;500&family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <title>Esercizio dei Puntini</title>
+  <style>
+    body {
+      overflow: hidden;
+    }
+    
+    p {
+      font-family: Raleway;
+    }
+
+    .text {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .div1 {
+      max-width: 1000px;
+      margin-right: auto;
+      margin-left: auto;
+      font-size: 22px;
+      line-height: 30px;
+    }
+    
+    .line-bottom {
+      margin-top: 30px;
+      max-width: 650px;
+      background-color: #8BC2EB;
+      height: 2px;
+      border-radius: 1px;
+      margin: 0 auto;
+    }
+
+    .velocity {
+      text-align: center;
+      margin-top: 35px;
+      font-size: 18px;
+    }
+  
+    .row {
+      width: 400px;
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      margin-top: 40px;
+    }
+
+    .ball {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background-color: #50A2EC;
+      margin: 0 16px;
+    }
+
+    .slider-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 70px;
+    }
+
+    .slider {
+      position: relative;
+      width: 400px;
+      height: 6px;
+      background-color: #E0E0E0;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 50px;
+    }
+
+    .slider-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background-color: #50A2EC;
+      border-radius: 5px;
+    }
+
+    .slider-thumb {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #50A2EC;
+      cursor: grab;
+    }
+    
+    .slider-value {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      color: #000;
+      font-family: Raleway;
+    }
+    
+    .start-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #1A2541;
+      color: #FFF;
+      font-size: 16px;
+      padding: 10px 140px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 40px auto;
+      font-family: Raleway;
+      margin-top: 20px;
+      margin-bottom: 900px;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .row-custom {
+      display: flex;
+      gap: 390px;
+      margin-bottom: 80px;
+      margin-top: 5px;
+    }
+    
+    .ball-custom {
+      width: 80px;
+      height: 80px;
+      border-radius: 50px;
+      background-color: rgb(80, 162, 236);
+      transition: background-color 0s;
+    }
+    
+    #buttonsContainer-custom {
+      display: flex;
+      gap: 50px;
+      margin-bottom: 100px;
+    }
+    
+    #changeColorButton-custom {
+opacity:0;
+    }
+
+    #goToTopButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: rgb(20, 42, 59);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+margin-left:-70px;
+    }
+
+    
+    #endButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: rgb(20, 42, 59);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .banner {
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      display: none;
+    }
+    
+    .banner-text {
+      font-family: Raleway;
+      font-size: 24px;
+      color: #FFF;
+      margin-bottom: 20px;
+    }
+    
+    .banner-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: rgb(20, 42, 59);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="div1">
+    <p class="text">Un esercizio <strong>fondamentale</strong> per allenare i muscoli responsabili della mobilità degli occhi è quello dei <strong>puntini</strong>. Per aiutarti ad allenare la velocità di spostamento degli occhi da un punto di fissità all'altro abbiamo creato questo gioco: <strong>Segui i puntini come fossero un testo da sinistra a destra e alla fine di ogni riga ritorna al primo puntino a sinistra.</strong>
+      Abituati a un ritmo regolare grazie al metronomo, che puoi impostare alla velocità massima a cui riesci a seguire i puntini che si illuminano. Man mano che ti alleni potrai aumentare il ritmo e il tempo di esecuzione dell'esercizio. <strong>In questo modo migliorerai velocità e resistenza.</strong>
+      </p>
+
+      <p style="text-align:center">Ricordati che dopo l'avvio del gioco si attiverà un timer di cinque minuti, e al suo scadere terminerà l'esecizio.</p>
+  </div>
+
+  <div class="line-bottom"></div>
+
+  <p class="velocity">Scegli la velocità con cui iniziare
+    il 
+  </p>
+
+  <div class="row">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+  </div>
+
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slider-progress"></div>
+      <div class="slider-thumb"></div>
+      <div class="slider-value"></div>
+    </div>
+  </div>
+  
+  <button id="startButton" class="start-button">Andiamo!</button>
+  
+  <div class="banner" id="endBanner">
+    <p class="banner-text">Sessione di gioco terminata</p>
+    <button id="endButton" class="banner-button">Torna indietro</button>
+  </div>
+
+  <div class="container">
+    <div class="row-custom">
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+    </div>
+    <div class="row-custom">
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+    </div>
+    <div class="row-custom">
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+    </div>
+    <div class="row-custom">
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+      <div class="ball-custom"></div>
+    </div>
+    <div id="buttonsContainer-custom">
+      <button id="changeColorButton-custom"></button>
+      <button id="goToTopButton">Torna indietro</button>
+    </div>
+  </div>
+ 
+  <script>
+    const balls = document.querySelectorAll('.ball');
+    const slider = document.querySelector('.slider');
+    const sliderThumb = document.querySelector('.slider-thumb');
+    const sliderProgress = document.querySelector('.slider-progress');
+    const sliderValue = document.querySelector('.slider-value');
+    const sliderWidth = slider.offsetWidth - sliderThumb.offsetWidth;
+    const minbpm = 250; // Valore minimo dei bpm
+    const maxbpm = 400; // Valore massimo dei bpm
+    const sensitivity = 5; // Sensibilità in bpm
+  
+    let isDragging = false;
+    let isIniziaButtonDisabled = false;
+    let isCountdownActive = false;
+    let countdownTimeoutId = null; // Aggiunta variabile per memorizzare l'ID del timeout del countdown
+    let endBannerTimeoutId; // Variabile per memorizzare l'ID del timeout del banner
+    let isBannerVisible = false;
+    let isCustomBallColorChanging = false;
+    let audio = new Audio('images/metronomo(1).wav'); // Inserisci il percorso del tuo file audio
+  
+    function updateSliderValue(percentage) {
+      const range = maxbpm - minbpm;
+      const snappedPercentage = Math.round(percentage / (100 / (range / sensitivity))) * (100 / (range / sensitivity));
+      sliderThumb.style.left = `${snappedPercentage}%`;
+      sliderProgress.style.width = `${snappedPercentage}%`;
+  
+      const bpm = Math.round((snappedPercentage / 100) * range) + minbpm;
+      sliderValue.textContent = `${bpm} bpm`;
+    }
+  
+    sliderThumb.addEventListener('mousedown', () => {
+      isDragging = true;
+    });
+  
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+  
+    document.addEventListener('mousemove', (event) => {
+      if (!isDragging) return;
+  
+      const sliderRect = slider.getBoundingClientRect();
+      let newPosition = event.clientX - sliderRect.left;
+  
+      if (newPosition < 0) {
+        newPosition = 0;
+      } else if (newPosition > sliderWidth) {
+        newPosition = sliderWidth;
+      }
+  
+      const percentage = (newPosition / sliderWidth) * 100;
+      updateSliderValue(percentage);
+    });
+  
+    slider.addEventListener('click', (event) => {
+      event.stopPropagation(); // Blocca la propagazione del clic sulla slider
+    });
+  
+    // Imposta la slider inizialmente a 250 bpm
+    const initialPercentage = ((minbpm - minbpm) / (maxbpm - minbpm)) * 100;
+    updateSliderValue(initialPercentage);
+  
+    let currentBallIndex = 0;
+    let timeoutId;
+  
+    function changeBallColor() {
+      const bpm = parseInt(sliderValue.textContent);
+      const interval = Math.round(60000 / bpm); // Calcola l'intervallo di tempo in millisecondi in base ai bpm
+  
+      balls.forEach((ball, index) => {
+        ball.style.backgroundColor = index === currentBallIndex ? '#1A2541' : '#50A2EC'; // Imposta il colore desiderato per la palla corrente
+      });
+  
+      currentBallIndex = (currentBallIndex + 1) % balls.length; // Passa alla palla successiva nel ciclo
+  
+      timeoutId = setTimeout(changeBallColor, interval); // Esegue nuovamente la funzione dopo l'intervallo di tempo
+    }
+  
+    changeBallColor(); // Avvia il ciclo di cambio colore delle palle
+  
+    const ballsCustom = document.querySelectorAll('.ball-custom');
+    const changeColorButtonCustom = document.getElementById('changeColorButton-custom');
+    const goToTopButton = document.getElementById('goToTopButton');
+    const endBanner = document.getElementById('endBanner');
+    const endButton = document.getElementById('endButton');
+    let countdownElement;
+  
+    let timeoutIdCustom;
+    let indexCustom = 0;
+    let isReversedCustom = false;
+    let bpmCustom = 0;
+  
+    function disableIniziaButton() {
+      changeColorButtonCustom.disabled = true;
+      changeColorButtonCustom.classList.add('disabled');
+      isIniziaButtonDisabled = true;
+    }
+  
+    function enableIniziaButton() {
+      changeColorButtonCustom.disabled = false;
+      changeColorButtonCustom.classList.remove('disabled');
+      isIniziaButtonDisabled = false;
+    }
+  
+    function startColorChange() {
+      const bpm = parseInt(sliderValue.textContent);
+      bpmCustom = bpm;
+      indexCustom = 0;
+      isReversedCustom = false;
+      isCustomBallColorChanging = true;
+      changeColorCustom();
+    }
+  
+    function changeColorCustom() {
+      const interval = Math.round(60000 / bpmCustom);
+  
+      ballsCustom[indexCustom].style.backgroundColor = "rgb(20, 42, 59)";
+  
+      audio.play(); // Riproduci l'audio quando il colore cambia
+  
+      timeoutIdCustom = setTimeout(function() {
+        ballsCustom[indexCustom].style.backgroundColor = "rgb(80, 162, 236)";
+  
+        if (!isReversedCustom) {
+          indexCustom++;
+          if (indexCustom === ballsCustom.length) {
+            indexCustom = ballsCustom.length - 1;
+            isReversedCustom = true;
+            indexCustom = 10;
+          }
+        } else {
+          indexCustom--;
+          if (indexCustom === -1) {
+            indexCustom = 0;
+            isReversedCustom = false;
+            resetColorsCustom();
+            indexCustom = 1;
+          }
+        }
+  
+        if (isCustomBallColorChanging) {
+          changeColorCustom();
+        }
+      }, interval);
+    }
+  
+    function resetColorsCustom() {
+      ballsCustom.forEach(function(ball) {
+        ball.style.backgroundColor = "rgb(80, 162, 236)";
+      });
+    }
+  
+    function startCountdown() {
+      countdownElement = document.createElement('div');
+      countdownElement.classList.add('countdown');
+      countdownElement.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+      countdownElement.style.color = '#FFF';
+      countdownElement.style.fontFamily = 'Raleway';
+      countdownElement.style.fontSize = '30px';
+      countdownElement.style.position = 'fixed';
+      countdownElement.style.top = '50%';
+      countdownElement.style.left = '50%';
+      countdownElement.style.transform = 'translate(-50%, -50%)';
+      countdownElement.style.textAlign = 'center';
+      countdownElement.style.padding = '2000px 9000px'; // Modifica del padding
+      countdownElement.style.zIndex = '9999';
+      countdownElement.style.borderRadius = '8px';
+  countdownElement.style.backgroundColor = 'rgba()'
+      countdownElement.innerText = '3';
+      document.body.appendChild(countdownElement);
+  
+      countdownTimeoutId = setTimeout(() => { // Memorizza l'ID del timeout in countdownTimeoutId
+        countdownElement.innerText = '2';
+  
+        countdownTimeoutId = setTimeout(() => {
+          countdownElement.innerText = '1';
+  
+          countdownTimeoutId = setTimeout(() => {
+            countdownElement.style.display = 'none';
+            isCountdownActive = false;
+            startColorChange();
+            endBannerTimeoutId = setTimeout(showEndBanner, 300000); // Mostra il banner dopo 5 minuti (300000 millisecondi)
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }
+  
+    const startButton = document.getElementById('startButton');
+    startButton.addEventListener('click', () => {
+      const scrollOptions = {
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+      };
+  
+      setTimeout(() => {
+        window.scrollTo(scrollOptions);
+      }, 100); // Aggiungi un piccolo ritardo prima di iniziare lo scroll
+  
+      clearTimeout(endBannerTimeoutId); // Annulla il timeout del banner se è già stato attivato
+      startCountdown();
+      disableIniziaButton();
+      isCountdownActive = true;
+    });
+  
+    goToTopButton.addEventListener('click', function() {
+      clearTimeout(countdownTimeoutId);
+      clearTimeout(endBannerTimeoutId); // Aggiungi questa riga per annullare il timeout del banner
+      if (countdownElement) {
+        countdownElement.remove();
+      }
+      const scrollToTopOptions = {
+        top: 0,
+        behavior: 'smooth'
+      };
+      window.scrollTo(scrollToTopOptions);
+      clearTimeout(timeoutIdCustom);
+      resetColorsCustom();
+      enableIniziaButton();
+      isCountdownActive = false;
+      isBannerVisible = false;
+      isCustomBallColorChanging = false;
+      audio.pause(); // Interrompi la riproduzione dell'audio
+    });
+  
+    endButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      endBanner.style.display = 'none';
+      enableIniziaButton();
+      const buttons = document.querySelectorAll('button:not(#endButton)');
+      buttons.forEach(function(button) {
+        button.disabled = false;
+        button.classList.remove('disabled');
+      });
+  
+      clearTimeout(endBannerTimeoutId); // Annulla il timeout del banner se è già stato attivato
+  
+      // Aggiungi il seguente codice per ripristinare il colore originario delle palle ball-custom
+      ballsCustom.forEach(function(ball) {
+        ball.style.backgroundColor = "rgb(80, 162, 236)";
+      });
+  
+      audio.pause(); // Interrompi la riproduzione dell'audio
+    });
+  
+    function showEndBanner() {
+      endBanner.style.display = 'flex';
+      disableIniziaButton();
+      const buttons = document.querySelectorAll('button:not(#endButton)');
+      buttons.forEach(function(button) {
+        button.disabled = true;
+        button.classList.add('disabled');
+      });
+      isBannerVisible = true;
+      clearTimeout(timeoutIdCustom); // Interrompe il cambio di colore delle palle ball-custom
+      isCustomBallColorChanging = false;
+      audio.pause(); // Interrompi la riproduzione dell'audio
+    }
+  </script>
+  
+</body>
+</html>
